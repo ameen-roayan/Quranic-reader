@@ -1,118 +1,193 @@
-# قارئ القرآن الكريم - PWA Deployment Guide
+<div align="center">
 
-## What You Have
+# قارئ القرآن الكريم
 
-A complete Progressive Web App (PWA) that auto-prompts users to install it when they visit your URL — no app store needed. Works on **every platform**: Android, iOS, Windows, macOS, Linux.
+### Quran Speed Reader PWA
 
-### Files:
+<img src="icons/icon-512.png" width="120" alt="App Icon">
+
+**تدبّر كلمة بكلمة في سكينة تامة، بلا إعلانات ولا تتبّع. صدقة جارية.**
+
+Read the Quran word-by-word at your own pace — no ads, no tracking. An ongoing charity.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/YOUR_REPO)
+[![License: MIT](https://img.shields.io/badge/License-MIT-gold.svg)](LICENSE)
+
+[Live Demo](https://your-app.vercel.app) · [Report Bug](../../issues) · [Request Feature](../../issues)
+
+</div>
+
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---------|-------------|
+| **Word-by-Word Display** | Spritz-style rapid serial visual presentation (RSVP) with ORP focus highlighting |
+| **Variable Speed** | 50–1000 WPM with optional variable speed that adjusts per-word based on length |
+| **Bilingual** | Full Arabic & English interface — switch anytime |
+| **Memorization Mode** | Loop any range of ayahs automatically for حفظ review |
+| **Dark & Light Themes** | Eye-comfortable reading in any environment |
+| **Auto-Bookmark** | Remembers your exact word position — resume where you left off |
+| **Eye Tracking** | Experimental gaze-based pause/play (webcam, optional) |
+| **Khatma Timer** | Shows estimated time to finish the current surah and full Quran |
+| **Offline Support** | Service worker caches surahs you've read — works without internet |
+| **Installable PWA** | Install to home screen on Android & iOS — feels like a native app |
+| **Zero Tracking** | No analytics, no cookies, no ads. Visitor counter uses [CounterAPI](https://counterapi.dev) with no personal data |
+
+## 📱 Screenshots
+
+<div align="center">
+<img src="screenshot-1.png" width="200" alt="Dark mode reading">
+<img src="screenshot-3.png" width="200" alt="Light mode reading">
+<img src="screenshot-2.png" width="200" alt="Settings and controls">
+<img src="screenshot-4.png" width="200" alt="Resume reading">
+</div>
+
+## 🚀 Quick Start
+
+### Option 1: Use it directly
+Visit the [live app](https://your-app.vercel.app) and install it to your device.
+
+### Option 2: Self-host
+
+```bash
+# Clone the repo
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
+
+# Serve locally (any static server works)
+npx serve .
+# or
+python3 -m http.server 8000
 ```
-quran-pwa/
-├── index.html          ← Your app (with PWA capabilities added)
-├── manifest.json       ← App metadata (name, icons, theme)
-├── sw.js               ← Service worker (offline caching)
-├── icons/
+
+Open `http://localhost:8000` — that's it. No build step, no dependencies, no framework. It's a single HTML file.
+
+> **Note:** Service worker and PWA install require HTTPS. For local development, `localhost` is an exception.
+
+## 🌐 Deploy
+
+This is a static site — deploy it anywhere that serves HTML:
+
+### Vercel (Recommended)
+1. Push to GitHub
+2. Go to [vercel.com](https://vercel.com) → **Add New Project** → select this repo
+3. Click **Deploy** — no configuration needed
+4. Every `git push` auto-deploys
+
+### Cloudflare Pages
+1. Go to [Cloudflare Pages](https://pages.cloudflare.com) → **Create a project**
+2. Connect your GitHub repo
+3. Build command: *(leave empty)*
+4. Output directory: `/`
+
+### Netlify
+1. Go to [netlify.com](https://netlify.com) → **Add new site** → Import from Git
+2. Select this repo
+3. Publish directory: `/`
+
+### GitHub Pages
+1. Go to repo **Settings** → **Pages**
+2. Source: Deploy from a branch → `main` → `/ (root)`
+3. Your app will be live at `https://username.github.io/repo-name`
+
+## 📂 Project Structure
+
+```
+├── index.html          # The entire app — single file, zero dependencies
+├── manifest.json       # PWA manifest (app name, icons, theme)
+├── sw.js               # Service worker (offline caching)
+├── icons/              # App icons (72px → 1024px + maskable variants)
 │   ├── icon-72.png
 │   ├── icon-96.png
 │   ├── icon-128.png
 │   ├── icon-144.png
 │   ├── icon-152.png
-│   ├── icon-180.png    ← Apple touch icon
+│   ├── icon-180.png
 │   ├── icon-192.png
 │   ├── icon-384.png
-│   └── icon-512.png
+│   ├── icon-512.png
+│   ├── icon-1024.png
+│   ├── icon-maskable-192.png
+│   └── icon-maskable-512.png
+├── screenshot-1.png    # Play Store / PWA install screenshots
+├── screenshot-2.png
+├── screenshot-3.png
+├── screenshot-4.png
 └── README.md
 ```
 
----
+## 🔧 Configuration
 
-## How to Deploy (Free Options)
+### CounterAPI (Optional)
+The app uses [CounterAPI](https://counterapi.dev) for a shared visitor counter and collective reading time. To use your own:
 
-### Option 1: GitHub Pages (Recommended — Free)
+1. Create a free account at [counterapi.dev](https://counterapi.dev)
+2. Create a workspace and generate an API token
+3. Update the workspace name and token in `index.html`:
 
-1. Create a GitHub account at github.com
-2. Create a new repository (e.g., `quran-reader`)
-3. Upload ALL files from this folder to the repository
-4. Go to **Settings → Pages → Source** → select "main" branch
-5. Your app will be live at: `https://yourusername.github.io/quran-reader/`
+```javascript
+const counterClient = new Counter({
+    workspace: 'your-workspace',
+    accessToken: 'your-token'
+});
+```
 
-### Option 2: Cloudflare Pages (Free, Fastest)
+If you don't set this up, the app falls back to localStorage — everything still works, just not shared across users.
 
-1. Sign up at pages.cloudflare.com
-2. Create new project → Upload assets
-3. Drag and drop the entire `quran-pwa` folder
-4. Done! Free custom domain support included.
+### Quran API
+The app fetches Quran data from [api.alquran.cloud](https://alquran.cloud/api) (free, no key required). Once a surah is loaded, it's cached by the service worker for offline use.
 
-### Option 3: Netlify (Free)
+## 📦 Google Play Store
 
-1. Go to app.netlify.com
-2. Drag and drop the `quran-pwa` folder onto the page
-3. Instant deploy with a free URL
+To publish as an Android app:
 
-### Option 4: Vercel (Free)
+1. Deploy the app to a live HTTPS URL first
+2. Go to [PWABuilder](https://pwabuilder.com) → enter your URL
+3. Click **Package for stores** → **Android**
+4. PWABuilder generates a Trusted Web Activity (TWA) wrapper
+5. Upload the generated `.aab` file to [Google Play Console](https://play.google.com/console) ($25 one-time fee)
 
-1. Go to vercel.com
-2. Import your GitHub repo or drag & drop files
-3. Instant deploy
+## 🤝 Contributing
 
----
+This is a صدقة جارية (ongoing charity) project. Contributions are welcome:
 
-## What Happens for Users
+1. Fork the repo
+2. Create a branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### On Android (Chrome / Samsung Internet / Edge):
-- User visits your URL
-- After ~2 seconds, a golden install banner appears at the bottom
-- They tap **"Install"** → native install dialog appears
-- App appears on their home screen with the golden crescent icon
-- Opens in standalone mode (no browser chrome — looks like a native app)
+### Ideas for Contribution
+- [ ] Audio recitation sync (play Sheikh's audio alongside word display)
+- [ ] Tafsir integration (tap a word for explanation)
+- [ ] Tajweed color coding
+- [ ] Multi-language translation support beyond English
+- [ ] Social sharing of reading progress
+- [ ] Daily reading goals and streaks
 
-### On iOS (Safari):
-- User visits your URL
-- Install banner appears with **"Install"** button
-- Tapping it shows step-by-step instructions:
-  1. Tap the Share button
-  2. Scroll and tap "Add to Home Screen"
-  3. Tap "Add"
-- App appears on home screen with the icon
+## 📄 License
 
-### On Desktop (Chrome / Edge):
-- Install icon appears in the address bar
-- Or they'll see the banner prompt
-- App installs as a standalone window
+This project is open source and available under the [MIT License](LICENSE).
 
----
+## 🤲 Credits
 
-## Features Added
-
-- ✅ **Auto-install prompt** — non-intrusive banner after 2 seconds
-- ✅ **iOS instructions** — step-by-step modal for Safari users
-- ✅ **Offline support** — previously loaded surahs work without internet
-- ✅ **Smart caching** — fonts, Quran API data, and app shell cached
-- ✅ **Offline indicator** — bar shows when connection is lost
-- ✅ **No nagging** — if dismissed, won't show again for 7 days
-- ✅ **Bilingual** — install prompts in Arabic or English based on user's choice
-- ✅ **App icons** — beautiful Islamic geometric design at all required sizes
-- ✅ **Zero tracking** — no analytics, no cookies beyond localStorage bookmarks
+- Quran data: [Al Quran Cloud API](https://alquran.cloud)
+- Fonts: [Amiri](https://fonts.google.com/specimen/Amiri) & [Noto Naskh Arabic](https://fonts.google.com/noto/specimen/Noto+Naskh+Arabic)
+- Analytics: [CounterAPI](https://counterapi.dev)
+- Built with pure HTML, CSS, and JavaScript — no frameworks
 
 ---
 
-## Custom Domain (Optional)
+<div align="center">
 
-For a professional URL like `quran.yourdomain.com`:
-1. Buy a domain (Namecheap, Google Domains, etc.)
-2. Point DNS to your hosting (GitHub Pages, Cloudflare, etc.)
-3. Enable HTTPS (required for PWA — all free hosts provide this)
+**بسم الله الرحمن الرحيم**
 
-**⚠️ Important: PWAs require HTTPS to work. All recommended hosts above provide free SSL.**
+Made with ❤️ as صدقة جارية
 
----
+If this app helps you in your journey with the Quran, please make دعاء for everyone who contributed to it.
 
-## Updating the App
+⭐ Star this repo if you find it useful
 
-When you update `index.html` or any files:
-1. Push changes to your host
-2. Update the `CACHE_NAME` in `sw.js` (e.g., change `'quran-reader-v1'` to `'quran-reader-v2'`)
-3. The service worker will automatically refresh cached files for all users
-
----
-
-بارك الله فيك 🌙
+</div>
