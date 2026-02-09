@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="القرآن">
     <meta name="theme-color" content="#0a0a0f">
-    <meta name="description" content="A beautiful, distraction-free Quran reader. No tracking, no ads, completely free.">
+    <meta name="description" content="رفيقك في تلاوة القرآن الكريم — تدبّر كلمة بكلمة في سكينة تامة، بلا إعلانات ولا تتبّع. صدقة جارية.">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="msapplication-TileColor" content="#0a0a0f">
     <meta name="msapplication-TileImage" content="/icons/icon-144.png">
@@ -1651,6 +1651,41 @@
             transform: translateX(20px);
             background-color: #000;
         }
+        /* Onboarding Features */
+        .onb-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            text-align: right;
+        }
+        [dir="rtl"] .onb-feature { text-align: right; }
+        .onb-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(212,175,55,0.1);
+            border-radius: 10px;
+        }
+        .onb-text { flex: 1; }
+        .onb-feat-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-1);
+            margin-bottom: 3px;
+        }
+        .onb-feat-desc {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
         /* PWA Install Banner */
         .install-banner {
             position: fixed;
@@ -1788,6 +1823,7 @@
         }
         .offline-bar.show { display: block; }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
 </head>
 
 <body>
@@ -1818,6 +1854,54 @@
             <button class="lang-btn" data-lang="ar"><span>🇸🇦</span><span>العربية</span></button>
             <button class="lang-btn" data-lang="en"><span>🇬🇧</span><span>English</span></button>
         </div>
+    </div>
+
+    <!-- ONBOARDING SCREEN -->
+    <div class="screen intro-screen" id="onboardScreen" style="padding:24px 20px;justify-content:flex-start;padding-top:50px;">
+        <img src="icons/icon-192.png" alt="" style="width:80px;height:80px;border-radius:20px;margin-bottom:24px;box-shadow:0 8px 30px rgba(212,175,55,0.3);">
+        <h1 style="font-family:'Amiri',serif;font-size:1.8rem;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;" id="onbTitle">قارئ القرآن الكريم</h1>
+        <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:30px;" id="onbSub">رفيقك في تلاوة القرآن الكريم</p>
+        
+        <div id="onbFeatures" style="width:100%;max-width:380px;display:flex;flex-direction:column;gap:16px;margin-bottom:36px;">
+            <div class="onb-feature">
+                <div class="onb-icon">📖</div>
+                <div class="onb-text">
+                    <div class="onb-feat-title" data-ar="قراءة كلمة بكلمة" data-en="Word-by-Word Reading">قراءة كلمة بكلمة</div>
+                    <div class="onb-feat-desc" data-ar="اعرض كلمات القرآن واحدة تلو الأخرى بالسرعة التي تناسبك" data-en="Display Quran words one at a time at your own pace">اعرض كلمات القرآن واحدة تلو الأخرى بالسرعة التي تناسبك</div>
+                </div>
+            </div>
+            <div class="onb-feature">
+                <div class="onb-icon">⏱️</div>
+                <div class="onb-text">
+                    <div class="onb-feat-title" data-ar="تحكّم بسرعة القراءة" data-en="Control Reading Speed">تحكّم بسرعة القراءة</div>
+                    <div class="onb-feat-desc" data-ar="اضبط السرعة من ٥٠ إلى ١٠٠٠ كلمة بالدقيقة — أو فعّل السرعة المتغيرة" data-en="Adjust from 50 to 1000 WPM — or enable variable speed">اضبط السرعة من ٥٠ إلى ١٠٠٠ كلمة بالدقيقة — أو فعّل السرعة المتغيرة</div>
+                </div>
+            </div>
+            <div class="onb-feature">
+                <div class="onb-icon">🔁</div>
+                <div class="onb-text">
+                    <div class="onb-feat-title" data-ar="تكرار الآيات للحفظ" data-en="Loop Ayahs for Memorization">تكرار الآيات للحفظ</div>
+                    <div class="onb-feat-desc" data-ar="حدّد نطاق آيات وكرّرها تلقائياً لتسهيل الحفظ والمراجعة" data-en="Set an ayah range and loop automatically for memorization">حدّد نطاق آيات وكرّرها تلقائياً لتسهيل الحفظ والمراجعة</div>
+                </div>
+            </div>
+            <div class="onb-feature">
+                <div class="onb-icon">🌙</div>
+                <div class="onb-text">
+                    <div class="onb-feat-title" data-ar="وضع ليلي ونهاري" data-en="Dark & Light Mode">وضع ليلي ونهاري</div>
+                    <div class="onb-feat-desc" data-ar="اختر ما يريح عينيك — مع حفظ تلقائي لموضع القراءة" data-en="Choose what's comfortable — with automatic bookmark saving">اختر ما يريح عينيك — مع حفظ تلقائي لموضع القراءة</div>
+                </div>
+            </div>
+            <div class="onb-feature">
+                <div class="onb-icon">🚫</div>
+                <div class="onb-text">
+                    <div class="onb-feat-title" data-ar="بلا إعلانات — بلا تتبّع" data-en="No Ads — No Tracking">بلا إعلانات — بلا تتبّع</div>
+                    <div class="onb-feat-desc" data-ar="تطبيق مجاني بالكامل — صدقة جارية" data-en="Completely free — an ongoing charity">تطبيق مجاني بالكامل — صدقة جارية</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="intro-btn" id="onbStartBtn" style="padding:16px 60px;font-size:1.1rem;">ابدأ القراءة</button>
+        <p style="color:var(--text-muted);font-size:0.7rem;margin-top:16px;text-align:center;" id="onbTip">اضغط على الشاشة للتشغيل والإيقاف — انقر مرتين على الأطراف للتنقل</p>
     </div>
 
     <!-- MAIN APP SCREEN -->
@@ -2640,13 +2724,25 @@
         function restoreBookmark() { const saved = localStorage.getItem('quranReaderBookmark'); if (saved) { const { surah, wordIndex, wordsRead } = JSON.parse(saved); state.wordsRead = wordsRead || 0; $('wordsRead').textContent = state.lang === 'ar' ? toArabicNum(state.wordsRead) : state.wordsRead; if (surah !== state.surah) { $('surahSelect').value = surah; loadSurah(surah).then(() => { state.wordIndex = wordIndex; displayWord(); updateProgress(); }); } else { state.wordIndex = wordIndex; displayWord(); updateProgress(); } } }
         function saveManualBookmark() { autoSaveBookmark(); showToast(i18n[state.lang].bookmarkSaved); }
         function showToast(msg) { const toast = document.createElement('div'); toast.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--bg-card-solid);color:var(--accent-1);padding:12px 24px;border-radius:25px;border:1px solid var(--border-accent);z-index:1001;animation:fadeIn 0.3s ease'; toast.textContent = msg; document.body.appendChild(toast); setTimeout(() => toast.remove(), 2000); }
-        function shareApp() { const surahName = SURAHS.find(s => s.number === state.surah)?.name || ''; const url = window.location.href; const text = state.lang === 'ar' ? `أقرأ سورة ${surahName} - قارئ القرآن الكريم` : `Reading Surah ${surahName}`; if (navigator.share) { navigator.share({ title: 'Quran Reader', text, url }); } else { navigator.clipboard.writeText(url); showToast(i18n[state.lang].copied); } }
+        function shareApp() { const surahName = SURAHS.find(s => s.number === state.surah)?.name || ''; const url = window.location.href; const text = state.lang === 'ar' ? `أقرأ سورة ${surahName} - قارئ القرآن الكريم` : `Reading Surah ${surahName}`; if (navigator.share) { navigator.share({ title: 'قارئ القرآن الكريم', text, url }); } else { navigator.clipboard.writeText(url); showToast(i18n[state.lang].copied); } }
+        // CounterAPI V2 setup
+        const counterClient = new Counter({
+            workspace: 'quran-reader',
+            accessToken: 'ut_N1JKKjvXvj3RkKCwcRCqqKkcKAr3t1CCDShg7tFX'
+        });
+
+        function formatTime(totalMins) {
+            const hrs = Math.floor(totalMins / 60);
+            const mins = totalMins % 60;
+            return `${state.lang === 'ar' ? toArabicNum(hrs) : hrs} ${state.lang === 'ar' ? 'س' : 'h'} ${state.lang === 'ar' ? toArabicNum(mins) : mins} ${state.lang === 'ar' ? 'د' : 'm'}`;
+        }
+
         async function initVisitorCounter() {
             try {
-                const hitRes = await fetch('https://api.countapi.xyz/hit/quran-reader-hosted/visits');
-                const hitData = await hitRes.json();
-                $('visitorsCount').textContent = state.lang === 'ar' ? toArabicNum(hitData.value) : hitData.value;
-            } catch {
+                const result = await counterClient.up('visits');
+                $('visitorsCount').textContent = state.lang === 'ar' ? toArabicNum(result.value) : result.value;
+            } catch(e) {
+                console.warn('Counter API error:', e);
                 let visitors = parseInt(localStorage.getItem('quranReaderVisitors') || '0') + 1;
                 localStorage.setItem('quranReaderVisitors', visitors);
                 $('visitorsCount').textContent = state.lang === 'ar' ? toArabicNum(visitors) : visitors;
@@ -2654,41 +2750,28 @@
         }
 
         async function updateCollectiveTime() {
-            // Update local backup first
+            // Update local backup
             let localTotal = parseInt(localStorage.getItem('quranReaderTotalSeconds') || '0') + 1;
             localStorage.setItem('quranReaderTotalSeconds', localTotal);
 
-            // Try to update global API
-            try {
-                if (state.elapsedSeconds > 0 && state.elapsedSeconds % 60 === 0) {
-                    const res = await fetch('https://api.countapi.xyz/update/quran-reader-hosted/collective-time/?amount=1');
-                    const data = await res.json();
-                    const totalMins = data.value || 0;
-                    const hrs = Math.floor(totalMins / 60);
-                    const mins = totalMins % 60;
-                    $('collectiveTime').textContent = `${state.lang === 'ar' ? toArabicNum(hrs) : hrs} ${state.lang === 'ar' ? 'س' : 'h'} ${state.lang === 'ar' ? toArabicNum(mins) : mins} ${state.lang === 'ar' ? 'د' : 'm'}`;
+            // Every 60 seconds, increment the global reading-time counter (counts in minutes)
+            if (state.elapsedSeconds > 0 && state.elapsedSeconds % 60 === 0) {
+                try {
+                    const result = await counterClient.up('reading-time');
+                    $('collectiveTime').textContent = formatTime(result.value);
+                } catch(e) {
+                    $('collectiveTime').textContent = formatTime(Math.floor(localTotal / 60));
                 }
-            } catch (e) {
-                // Fallback to local total if API fails
-                const hrs = Math.floor(localTotal / 3600);
-                const mins = Math.floor((localTotal % 3600) / 60);
-                $('collectiveTime').textContent = `${state.lang === 'ar' ? toArabicNum(hrs) : hrs} ${state.lang === 'ar' ? 'س' : 'h'} ${state.lang === 'ar' ? toArabicNum(mins) : mins} ${state.lang === 'ar' ? 'د' : 'm'}`;
             }
         }
+
         async function loadCollectiveTime() {
             try {
-                const res = await fetch('https://api.countapi.xyz/get/quran-reader-hosted/collective-time');
-                const data = await res.json();
-                const totalMins = data.value || 0;
-                const hrs = Math.floor(totalMins / 60);
-                const mins = totalMins % 60;
-                $('collectiveTime').textContent = `${state.lang === 'ar' ? toArabicNum(hrs) : hrs} ${state.lang === 'ar' ? 'س' : 'h'} ${state.lang === 'ar' ? toArabicNum(mins) : mins} ${state.lang === 'ar' ? 'د' : 'm'}`;
-            } catch {
-                // Fallback to local total
+                const result = await counterClient.get('reading-time');
+                $('collectiveTime').textContent = formatTime(result.value);
+            } catch(e) {
                 let localTotal = parseInt(localStorage.getItem('quranReaderTotalSeconds') || '0');
-                const hrs = Math.floor(localTotal / 3600);
-                const mins = Math.floor((localTotal % 3600) / 60);
-                $('collectiveTime').textContent = `${state.lang === 'ar' ? toArabicNum(hrs) : hrs} ${state.lang === 'ar' ? 'س' : 'h'} ${state.lang === 'ar' ? toArabicNum(mins) : mins} ${state.lang === 'ar' ? 'د' : 'm'}`;
+                $('collectiveTime').textContent = formatTime(Math.floor(localTotal / 60));
             }
         }
         function toggleFullscreen() { state.isFullscreen = !state.isFullscreen; document.body.classList.toggle('fullscreen', state.isFullscreen); if (state.isFullscreen && document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); } else if (!state.isFullscreen && document.exitFullscreen) { document.exitFullscreen().catch(() => { }); } }
@@ -2696,7 +2779,19 @@
         let isDragging = false; $('progressContainer').addEventListener('mousedown', e => { isDragging = true; handleProgressDrag(e); }); $('progressContainer').addEventListener('touchstart', e => { isDragging = true; handleProgressDrag(e.touches[0]); }, { passive: true }); document.addEventListener('mousemove', e => { if (isDragging) handleProgressDrag(e); }); document.addEventListener('touchmove', e => { if (isDragging) handleProgressDrag(e.touches[0]); }, { passive: true }); document.addEventListener('mouseup', () => isDragging = false); document.addEventListener('touchend', () => isDragging = false);
         function handleProgressDrag(e) { const rect = $('progressContainer').getBoundingClientRect(); let pct = (e.clientX - rect.left) / rect.width; if (state.lang === 'ar') pct = 1 - pct; pct = Math.max(0, Math.min(1, pct)); state.wordIndex = Math.floor(pct * (state.words.length - 1)); displayWord(); updateProgress(); }
         $('startBtn').addEventListener('click', () => showScreen('langScreen'));
-        document.querySelectorAll('.lang-btn').forEach(btn => { btn.addEventListener('click', () => { state.lang = btn.dataset.lang; updateUI(); populateSurahSelect(); showScreen('appScreen'); restoreBookmark(); if (!state.words.length) loadSurah(1); }); });
+        document.querySelectorAll('.lang-btn').forEach(btn => { btn.addEventListener('click', () => { state.lang = btn.dataset.lang; updateUI(); populateSurahSelect(); const hasBookmark = localStorage.getItem('quranReaderBookmark'); if (hasBookmark) { showScreen('appScreen'); restoreBookmark(); if (!state.words.length) loadSurah(1); $('resumeModal').style.display = 'flex'; } else { updateOnboarding(); showScreen('onboardScreen'); } }); });
+        function updateOnboarding() {
+            const lang = state.lang;
+            document.getElementById('onbTitle').textContent = lang === 'ar' ? 'قارئ القرآن الكريم' : 'Quran Reader';
+            document.getElementById('onbSub').textContent = lang === 'ar' ? 'رفيقك في تلاوة القرآن الكريم' : 'Your companion in reciting the Noble Quran';
+            document.getElementById('onbStartBtn').textContent = lang === 'ar' ? 'ابدأ القراءة' : 'Start Reading';
+            document.getElementById('onbTip').textContent = lang === 'ar' ? 'اضغط على الشاشة للتشغيل والإيقاف — انقر مرتين على الأطراف للتنقل' : 'Tap the screen to play/pause — double-tap edges to skip';
+            document.querySelectorAll('.onb-feat-title').forEach(el => { el.textContent = el.getAttribute('data-' + lang); });
+            document.querySelectorAll('.onb-feat-desc').forEach(el => { el.textContent = el.getAttribute('data-' + lang); });
+            document.getElementById('onboardScreen').dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.querySelectorAll('.onb-feature').forEach(f => f.style.textAlign = lang === 'ar' ? 'right' : 'left');
+        }
+        document.getElementById('onbStartBtn').addEventListener('click', () => { showScreen('appScreen'); restoreBookmark(); if (!state.words.length) loadSurah(1); });
         $('surahSelect').addEventListener('change', e => { if (e.target.value) loadSurah(parseInt(e.target.value)); });
         $('playBtn').addEventListener('click', togglePlay);
         // Logic Corrected: skipBack decreases index (Previous), skipFwd increases index (Next)
@@ -2734,12 +2829,6 @@
         window.addEventListener('beforeunload', () => { autoSaveBookmark(); });
         window.addEventListener('pagehide', () => { autoSaveBookmark(); });
         createParticles(); updateUI(); populateSurahSelect(); initVisitorCounter(); loadCollectiveTime();
-        // Auto-resume if bookmark exists
-        // Auto-resume check
-        const savedBookmark = localStorage.getItem('quranReaderBookmark');
-        if (savedBookmark) {
-            $('resumeModal').style.display = 'flex';
-        }
     </script>
     <script>
         // Interaction Overlay Logic

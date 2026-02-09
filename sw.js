@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quran-reader-v2';
+const CACHE_NAME = 'quran-reader-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -52,6 +52,12 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // CounterAPI - network only, don't cache analytics
+  if (url.hostname.includes('counterapi.dev') || url.hostname.includes('cdn.jsdelivr.net/npm/counterapi')) {
+    event.respondWith(fetch(event.request).catch(() => new Response('{}', { headers: { 'Content-Type': 'application/json' } })));
+    return;
+  }
+
   // Quran API calls - network first, fallback to cache
   if (url.hostname.includes('api.alquran.cloud') || url.hostname.includes('cdn.jsdelivr.net')) {
     event.respondWith(
@@ -67,11 +73,6 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // CountAPI - network only
-  if (url.hostname.includes('countapi')) {
-    event.respondWith(fetch(event.request).catch(() => new Response('{}', { headers: { 'Content-Type': 'application/json' } })));
-    return;
-  }
 
   // Static assets - cache first
   event.respondWith(
