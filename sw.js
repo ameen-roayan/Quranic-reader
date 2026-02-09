@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quran-reader-v3';
+const CACHE_NAME = 'quran-reader-v4';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -53,7 +53,7 @@ self.addEventListener('fetch', event => {
   }
 
   // CounterAPI - network only, don't cache analytics
-  if (url.hostname.includes('counterapi.dev') || url.hostname.includes('cdn.jsdelivr.net/npm/counterapi')) {
+  if (url.hostname.includes('counterapi.dev')) {
     event.respondWith(fetch(event.request).catch(() => new Response('{}', { headers: { 'Content-Type': 'application/json' } })));
     return;
   }

@@ -1823,7 +1823,6 @@
         }
         .offline-bar.show { display: block; }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
 </head>
 
 <body>
@@ -2725,11 +2724,19 @@
         function saveManualBookmark() { autoSaveBookmark(); showToast(i18n[state.lang].bookmarkSaved); }
         function showToast(msg) { const toast = document.createElement('div'); toast.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--bg-card-solid);color:var(--accent-1);padding:12px 24px;border-radius:25px;border:1px solid var(--border-accent);z-index:1001;animation:fadeIn 0.3s ease'; toast.textContent = msg; document.body.appendChild(toast); setTimeout(() => toast.remove(), 2000); }
         function shareApp() { const surahName = SURAHS.find(s => s.number === state.surah)?.name || ''; const url = window.location.href; const text = state.lang === 'ar' ? `أقرأ سورة ${surahName} - قارئ القرآن الكريم` : `Reading Surah ${surahName}`; if (navigator.share) { navigator.share({ title: 'قارئ القرآن الكريم', text, url }); } else { navigator.clipboard.writeText(url); showToast(i18n[state.lang].copied); } }
-        // CounterAPI V2 setup
-        const counterClient = new Counter({
-            workspace: 'quran-reader',
-            accessToken: 'ut_N1JKKjvXvj3RkKCwcRCqqKkcKAr3t1CCDShg7tFX'
-        });
+        // CounterAPI V1 — direct fetch, no library needed
+        const COUNTER_API = 'https://api.counterapi.dev/v1/quran-reader';
+
+        function extractCount(data) {
+            // Handle different possible response formats
+            if (data === null || data === undefined) return null;
+            if (typeof data === 'number') return data;
+            if (data.Count !== undefined) return data.Count;
+            if (data.count !== undefined) return data.count;
+            if (data.value !== undefined) return data.value;
+            if (data.data !== undefined) return extractCount(data.data);
+            return null;
+        }
 
         function formatTime(totalMins) {
             const hrs = Math.floor(totalMins / 60);
@@ -2739,8 +2746,15 @@
 
         async function initVisitorCounter() {
             try {
-                const result = await counterClient.up('visits');
-                $('visitorsCount').textContent = state.lang === 'ar' ? toArabicNum(result.value) : result.value;
+                const res = await fetch(`${COUNTER_API}/visits/up`);
+                const data = await res.json();
+                console.log('CounterAPI visits response:', data);
+                const count = extractCount(data);
+                if (count !== null) {
+                    $('visitorsCount').textContent = state.lang === 'ar' ? toArabicNum(count) : count;
+                    return;
+                }
+                throw new Error('Could not parse count from: ' + JSON.stringify(data));
             } catch(e) {
                 console.warn('Counter API error:', e);
                 let visitors = parseInt(localStorage.getItem('quranReaderVisitors') || '0') + 1;
@@ -2750,29 +2764,36 @@
         }
 
         async function updateCollectiveTime() {
-            // Update local backup
             let localTotal = parseInt(localStorage.getItem('quranReaderTotalSeconds') || '0') + 1;
             localStorage.setItem('quranReaderTotalSeconds', localTotal);
 
-            // Every 60 seconds, increment the global reading-time counter (counts in minutes)
             if (state.elapsedSeconds > 0 && state.elapsedSeconds % 60 === 0) {
                 try {
-                    const result = await counterClient.up('reading-time');
-                    $('collectiveTime').textContent = formatTime(result.value);
-                } catch(e) {
-                    $('collectiveTime').textContent = formatTime(Math.floor(localTotal / 60));
-                }
+                    const res = await fetch(`${COUNTER_API}/reading-time/up`);
+                    const data = await res.json();
+                    const count = extractCount(data);
+                    if (count !== null) {
+                        $('collectiveTime').textContent = formatTime(count);
+                        return;
+                    }
+                } catch(e) { /* fallback below */ }
+                $('collectiveTime').textContent = formatTime(Math.floor(localTotal / 60));
             }
         }
 
         async function loadCollectiveTime() {
             try {
-                const result = await counterClient.get('reading-time');
-                $('collectiveTime').textContent = formatTime(result.value);
-            } catch(e) {
-                let localTotal = parseInt(localStorage.getItem('quranReaderTotalSeconds') || '0');
-                $('collectiveTime').textContent = formatTime(Math.floor(localTotal / 60));
-            }
+                const res = await fetch(`${COUNTER_API}/reading-time`);
+                const data = await res.json();
+                console.log('CounterAPI reading-time response:', data);
+                const count = extractCount(data);
+                if (count !== null) {
+                    $('collectiveTime').textContent = formatTime(count);
+                    return;
+                }
+            } catch(e) { /* fallback below */ }
+            let localTotal = parseInt(localStorage.getItem('quranReaderTotalSeconds') || '0');
+            $('collectiveTime').textContent = formatTime(Math.floor(localTotal / 60));
         }
         function toggleFullscreen() { state.isFullscreen = !state.isFullscreen; document.body.classList.toggle('fullscreen', state.isFullscreen); if (state.isFullscreen && document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); } else if (!state.isFullscreen && document.exitFullscreen) { document.exitFullscreen().catch(() => { }); } }
         function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); $(id).classList.add('active'); }
