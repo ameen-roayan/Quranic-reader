@@ -1,119 +1,250 @@
-<div align="center">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سياسة الخصوصية — كلمة | Privacy Policy — Kalima</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0f;
+            color: #e0d5c1;
+            font-family: 'Amiri', 'Inter', sans-serif;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+        }
+        .header img {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+        }
+        .header h1 {
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #d4af37, #f4e199);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+        }
+        .header p {
+            color: #8a8070;
+            font-size: 0.85rem;
+        }
+        .lang-switch {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .lang-btn {
+            padding: 8px 24px;
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 20px;
+            background: transparent;
+            color: #e0d5c1;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .lang-btn.active {
+            background: rgba(212,175,55,0.15);
+            border-color: #d4af37;
+            color: #d4af37;
+        }
+        .section { display: none; }
+        .section.active { display: block; }
+        h2 {
+            color: #d4af37;
+            font-size: 1.3rem;
+            margin: 36px 0 16px;
+        }
+        h2:first-child { margin-top: 0; }
+        h3 {
+            color: #f4e199;
+            font-size: 1.05rem;
+            margin: 28px 0 12px;
+        }
+        p {
+            margin-bottom: 14px;
+            color: #c4b89a;
+        }
+        .no-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px;
+        }
+        .no-list li {
+            padding: 6px 0;
+            color: #c4b89a;
+        }
+        a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+        a:hover { text-decoration: underline; }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212,175,55,0.2);
+            color: #8a8070;
+            font-size: 0.85rem;
+        }
+        .footer .basmala {
+            font-family: 'Amiri', serif;
+            font-size: 1.1rem;
+            color: #d4af37;
+            margin-bottom: 12px;
+        }
+        .footer .sadaqah {
+            margin: 12px 0;
+            color: #a09080;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>سياسة الخصوصية — Privacy Policy</h1>
+            <p>كلمة — قارئ القرآن كلمة بكلمة | Kalima — Quran Word by Word Reader</p>
+            <p>آخر تحديث: ٩ فبراير ٢٠٢٦ | Last updated: February 9, 2026</p>
+        </div>
 
-# سياسة الخصوصية — Privacy Policy
-## كلمة — قارئ القرآن كلمة بكلمة
-### Kalima — Quran Word by Word Reader
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="switchLang('ar')">العربية</button>
+            <button class="lang-btn" onclick="switchLang('en')">English</button>
+        </div>
 
-آخر تحديث: ٩ فبراير ٢٠٢٦ | Last updated: February 9, 2026
+        <!-- ARABIC -->
+        <div class="section active" id="sec-ar">
+            <h2>مقدمة</h2>
+            <p>تطبيق "كلمة" هو تطبيق مجاني بالكامل، صدقة جارية، لا يهدف إلى أي ربح مادي. نحن نحترم خصوصيتك احترامًا تامًا ولا نجمع أي بيانات شخصية.</p>
 
-</div>
+            <h2>البيانات التي نجمعها</h2>
+            <p><strong>لا شيء.</strong> التطبيق لا يجمع أي بيانات شخصية على الإطلاق:</p>
+            <ul class="no-list">
+                <li>❌ لا نجمع الاسم أو البريد الإلكتروني أو رقم الهاتف</li>
+                <li>❌ لا نجمع بيانات الموقع الجغرافي</li>
+                <li>❌ لا نتتبع سلوك الاستخدام أو التصفح</li>
+                <li>❌ لا نستخدم ملفات تعريف الارتباط (Cookies) للتتبع</li>
+                <li>❌ لا نعرض إعلانات ولا نشارك بيانات مع معلنين</li>
+                <li>❌ لا نستخدم أدوات تحليل مثل Google Analytics أو Facebook SDK</li>
+            </ul>
 
----
+            <h2>البيانات المخزنة محليًا</h2>
+            <p>يخزّن التطبيق البيانات التالية <strong>على جهازك فقط</strong> باستخدام localStorage:</p>
+            <ul class="no-list">
+                <li>• موضع القراءة (العلامة المرجعية) لمتابعة القراءة</li>
+                <li>• إعدادات اللغة والسرعة والمظهر</li>
+                <li>• عداد الكلمات ووقت القراءة الشخصي</li>
+            </ul>
+            <p>هذه البيانات <strong>لا تُرسل إلى أي خادم</strong> ولا يمكن لأحد الوصول إليها سواك. يمكنك حذفها في أي وقت بمسح بيانات التطبيق.</p>
 
-## العربية
+            <h2>عداد الزوار</h2>
+            <p>يستخدم التطبيق خدمة <a href="https://counterapi.dev" target="_blank">CounterAPI</a> لعدّ إجمالي الزيارات ووقت القراءة الجماعي فقط. هذا العداد:</p>
+            <ul class="no-list">
+                <li>• يحفظ رقمًا واحدًا فقط (عدد الزيارات الإجمالي)</li>
+                <li>• لا يحفظ عنوان IP أو أي معلومات تعريفية</li>
+                <li>• لا يمكنه تحديد هوية أي مستخدم</li>
+            </ul>
 
-### مقدمة
-تطبيق "كلمة" هو تطبيق مجاني بالكامل، صدقة جارية، لا يهدف إلى أي ربح مادي. نحن نحترم خصوصيتك احترامًا تامًا ولا نجمع أي بيانات شخصية.
+            <h2>واجهة القرآن</h2>
+            <p>يحصل التطبيق على نصوص القرآن الكريم من <a href="https://alquran.cloud/api" target="_blank">api.alquran.cloud</a>، وهي خدمة مجانية مفتوحة المصدر. لا نتحكم في سياسة الخصوصية الخاصة بهذه الخدمة.</p>
 
-### البيانات التي نجمعها
-**لا شيء.** التطبيق لا يجمع أي بيانات شخصية على الإطلاق. تحديدًا:
+            <h2>التحكم بالنظر (اختياري)</h2>
+            <p>خاصية التحكم بالنظر تستخدم كاميرا الجهاز <strong>محليًا فقط</strong> لتتبع حركة العين. لا تُرسل أي صور أو بيانات من الكاميرا إلى أي خادم. يتم طلب إذن الكاميرا فقط عند تفعيل هذه الخاصية، ويمكنك رفضه.</p>
 
-- ❌ لا نجمع الاسم أو البريد الإلكتروني أو رقم الهاتف
-- ❌ لا نجمع بيانات الموقع الجغرافي
-- ❌ لا نتتبع سلوك الاستخدام أو التصفح
-- ❌ لا نستخدم ملفات تعريف الارتباط (Cookies) للتتبع
-- ❌ لا نعرض إعلانات ولا نشارك بيانات مع معلنين
-- ❌ لا نستخدم أدوات تحليل مثل Google Analytics أو Facebook SDK
+            <h2>الأطفال</h2>
+            <p>التطبيق آمن للاستخدام من جميع الأعمار ولا يجمع أي بيانات من الأطفال أو غيرهم.</p>
 
-### البيانات المخزنة محليًا
-يخزّن التطبيق البيانات التالية **على جهازك فقط** باستخدام localStorage:
+            <h2>التعديلات</h2>
+            <p>قد نحدّث هذه السياسة عند الحاجة. سيتم نشر أي تعديل في هذه الصفحة مع تحديث التاريخ.</p>
 
-- موضع القراءة (العلامة المرجعية) لمتابعة القراءة
-- إعدادات اللغة والسرعة والمظهر
-- عداد الكلمات ووقت القراءة الشخصي
+            <h2>التواصل</h2>
+            <p>لأي استفسار حول الخصوصية، تواصل معنا عبر: <a href="mailto:privacy@eyepoke.com">privacy@eyepoke.com</a></p>
+        </div>
 
-هذه البيانات **لا تُرسل إلى أي خادم** ولا يمكن لأحد الوصول إليها سواك. يمكنك حذفها في أي وقت بمسح بيانات التطبيق.
+        <!-- ENGLISH -->
+        <div class="section" id="sec-en">
+            <h2>Introduction</h2>
+            <p>"Kalima" is a completely free app, created as Sadaqah Jariyah (ongoing charity), with no commercial intent. We fully respect your privacy and collect zero personal data.</p>
 
-### عداد الزوار
-يستخدم التطبيق خدمة [CounterAPI](https://counterapi.dev) لعدّ إجمالي الزيارات ووقت القراءة الجماعي فقط. هذا العداد:
+            <h2>Data We Collect</h2>
+            <p><strong>None.</strong> The app does not collect any personal data whatsoever:</p>
+            <ul class="no-list">
+                <li>❌ No name, email, or phone number collection</li>
+                <li>❌ No location tracking</li>
+                <li>❌ No usage or browsing behavior tracking</li>
+                <li>❌ No tracking cookies</li>
+                <li>❌ No advertisements or data sharing with advertisers</li>
+                <li>❌ No analytics tools (no Google Analytics, no Facebook SDK)</li>
+            </ul>
 
-- يحفظ رقمًا واحدًا فقط (عدد الزيارات الإجمالي)
-- لا يحفظ عنوان IP أو أي معلومات تعريفية
-- لا يمكنه تحديد هوية أي مستخدم
+            <h2>Locally Stored Data</h2>
+            <p>The app stores the following data <strong>only on your device</strong> using localStorage:</p>
+            <ul class="no-list">
+                <li>• Reading position (bookmark) to resume reading</li>
+                <li>• Language, speed, and theme preferences</li>
+                <li>• Personal word count and reading time</li>
+            </ul>
+            <p>This data is <strong>never sent to any server</strong> and only you can access it. You can delete it anytime by clearing the app's data.</p>
 
-### واجهة القرآن
-يحصل التطبيق على نصوص القرآن الكريم من [api.alquran.cloud](https://alquran.cloud/api)، وهي خدمة مجانية مفتوحة المصدر. لا نتحكم في سياسة الخصوصية الخاصة بهذه الخدمة.
+            <h2>Visitor Counter</h2>
+            <p>The app uses <a href="https://counterapi.dev" target="_blank">CounterAPI</a> solely to count total visits and collective reading time. This counter:</p>
+            <ul class="no-list">
+                <li>• Stores only a single number (total visit count)</li>
+                <li>• Does not store IP addresses or any identifying information</li>
+                <li>• Cannot identify any individual user</li>
+            </ul>
 
-### التحكم بالنظر (اختياري)
-خاصية التحكم بالنظر تستخدم كاميرا الجهاز **محليًا فقط** لتتبع حركة العين. لا تُرسل أي صور أو بيانات من الكاميرا إلى أي خادم. يتم طلب إذن الكاميرا فقط عند تفعيل هذه الخاصية، ويمكنك رفضه.
+            <h2>Quran Data</h2>
+            <p>The app retrieves Quran text from <a href="https://alquran.cloud/api" target="_blank">api.alquran.cloud</a>, a free open-source service. We do not control the privacy policy of this third-party service.</p>
 
-### الأطفال
-التطبيق آمن للاستخدام من جميع الأعمار ولا يجمع أي بيانات من الأطفال أو غيرهم.
+            <h2>Eye Tracking (Optional)</h2>
+            <p>The eye-tracking feature uses the device camera <strong>locally only</strong> to track eye movement. No images or camera data are ever sent to any server. Camera permission is only requested when you enable this feature, and you can decline it.</p>
 
-### التعديلات
-قد نحدّث هذه السياسة عند الحاجة. سيتم نشر أي تعديل في هذه الصفحة مع تحديث التاريخ.
+            <h2>Children</h2>
+            <p>The app is safe for all ages and does not collect any data from children or anyone else.</p>
 
-### التواصل
-لأي استفسار حول الخصوصية، تواصل معنا عبر: privacy@eyepoke.com
+            <h2>Changes</h2>
+            <p>We may update this policy as needed. Any changes will be posted on this page with an updated date.</p>
 
----
+            <h2>Contact</h2>
+            <p>For any privacy inquiries, contact us at: <a href="mailto:privacy@eyepoke.com">privacy@eyepoke.com</a></p>
+        </div>
 
-## English
+        <div class="footer">
+            <div class="basmala">بسم الله الرحمن الرحيم</div>
+            <div class="sadaqah">هذا التطبيق صدقة جارية — لا نريد بياناتك، نريد لك الأجر</div>
+            <div class="sadaqah">This app is Sadaqah Jariyah — we don't want your data, we want reward for you.</div>
+            <br>
+            <div>© 2026 Eyepoke Entertainment</div>
+        </div>
+    </div>
 
-### Introduction
-"Kalima" is a completely free app, created as Sadaqah Jariyah (ongoing charity), with no commercial intent. We fully respect your privacy and collect zero personal data.
-
-### Data We Collect
-**None.** The app does not collect any personal data whatsoever. Specifically:
-
-- ❌ No name, email, or phone number collection
-- ❌ No location tracking
-- ❌ No usage or browsing behavior tracking
-- ❌ No tracking cookies
-- ❌ No advertisements or data sharing with advertisers
-- ❌ No analytics tools (no Google Analytics, no Facebook SDK)
-
-### Locally Stored Data
-The app stores the following data **only on your device** using localStorage:
-
-- Reading position (bookmark) to resume reading
-- Language, speed, and theme preferences
-- Personal word count and reading time
-
-This data is **never sent to any server** and only you can access it. You can delete it anytime by clearing the app's data.
-
-### Visitor Counter
-The app uses [CounterAPI](https://counterapi.dev) solely to count total visits and collective reading time. This counter:
-
-- Stores only a single number (total visit count)
-- Does not store IP addresses or any identifying information
-- Cannot identify any individual user
-
-### Quran Data
-The app retrieves Quran text from [api.alquran.cloud](https://alquran.cloud/api), a free open-source service. We do not control the privacy policy of this third-party service.
-
-### Eye Tracking (Optional)
-The eye-tracking feature uses the device camera **locally only** to track eye movement. No images or camera data are ever sent to any server. Camera permission is only requested when you enable this feature, and you can decline it.
-
-### Children
-The app is safe for all ages and does not collect any data from children or anyone else.
-
-### Changes
-We may update this policy as needed. Any changes will be posted on this page with an updated date.
-
-### Contact
-For any privacy inquiries, contact us at: a@eyepoke.com
-
----
-
-<div align="center">
-
-**بسم الله الرحمن الرحيم**
-
-هذا التطبيق صدقة جارية — لا نريد بياناتك، نريد لك الأجر.
-
-This app is Sadaqah Jariyah — we don't want your data, we want reward for you.
-
-© 2026 Eyepoke Entertainment
-
-</div>
+    <script>
+        function switchLang(lang) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('sec-' + lang).classList.add('active');
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = lang;
+        }
+    </script>
+</body>
+</html>
