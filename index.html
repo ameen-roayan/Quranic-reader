@@ -1832,7 +1832,7 @@
         </svg><span id="exitFsLabel">خروج</span></button>
 
     <!-- INTRO SCREEN -->
-    <div class="screen intro-screen active" id="introScreen">
+    <div class="screen intro-screen" id="introScreen">
         <div class="intro-icon"><svg viewBox="0 0 100 100">
                 <rect x="20" y="10" width="60" height="80" rx="4" />
                 <line x1="32" y1="28" x2="68" y2="28" />
@@ -1847,7 +1847,7 @@
     </div>
 
     <!-- LANGUAGE SCREEN -->
-    <div class="screen lang-screen" id="langScreen">
+    <div class="screen lang-screen active" id="langScreen">
         <h2 class="lang-title">اختر اللغة / Choose Language</h2>
         <div class="lang-options">
             <button class="lang-btn" data-lang="ar"><span>🇸🇦</span><span>العربية</span></button>
@@ -2799,7 +2799,6 @@
         function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); $(id).classList.add('active'); }
         let isDragging = false; $('progressContainer').addEventListener('mousedown', e => { isDragging = true; handleProgressDrag(e); }); $('progressContainer').addEventListener('touchstart', e => { isDragging = true; handleProgressDrag(e.touches[0]); }, { passive: true }); document.addEventListener('mousemove', e => { if (isDragging) handleProgressDrag(e); }); document.addEventListener('touchmove', e => { if (isDragging) handleProgressDrag(e.touches[0]); }, { passive: true }); document.addEventListener('mouseup', () => isDragging = false); document.addEventListener('touchend', () => isDragging = false);
         function handleProgressDrag(e) { const rect = $('progressContainer').getBoundingClientRect(); let pct = (e.clientX - rect.left) / rect.width; if (state.lang === 'ar') pct = 1 - pct; pct = Math.max(0, Math.min(1, pct)); state.wordIndex = Math.floor(pct * (state.words.length - 1)); displayWord(); updateProgress(); }
-        $('startBtn').addEventListener('click', () => showScreen('langScreen'));
         document.querySelectorAll('.lang-btn').forEach(btn => { btn.addEventListener('click', () => { state.lang = btn.dataset.lang; updateUI(); populateSurahSelect(); const hasBookmark = localStorage.getItem('quranReaderBookmark'); if (hasBookmark) { showScreen('appScreen'); restoreBookmark(); if (!state.words.length) loadSurah(1); $('resumeModal').style.display = 'flex'; } else { updateOnboarding(); showScreen('onboardScreen'); } }); });
         function updateOnboarding() {
             const lang = state.lang;
