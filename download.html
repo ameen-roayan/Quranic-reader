@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كلمات - قارئ القرآن كلمة بكلمة | Kalimat</title>
+    <meta name="description" content="تدبّر القرآن كلمة بكلمة - بلا إعلانات ولا تتبّع. صدقة جارية.">
+    <meta property="og:title" content="كلمات - قارئ القرآن كلمة بكلمة">
+    <meta property="og:description" content="تدبّر القرآن كلمة بكلمة بسرعتك. بلا إعلانات ولا تتبّع. صدقة جارية.">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+        @keyframes shimmer { 0% { background-position:-200% center; } 100% { background-position:200% center; } }
+        @keyframes pulseGlow { 0%,100% { box-shadow:0 0 30px rgba(212,175,37,0.1); } 50% { box-shadow:0 0 50px rgba(212,175,37,0.25); } }
+        @keyframes starTwinkle { 0%,100% { opacity:0.2; } 50% { opacity:0.8; } }
+        @keyframes rotate { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:#050508; color:#e0d5c1; font-family:'Noto Naskh Arabic','Amiri',serif; min-height:100vh; overflow-x:hidden; }
+        .sky { position:fixed; inset:0; overflow:hidden; z-index:0; }
+        .star { position:absolute; width:2px; height:2px; background:#f4e199; border-radius:50%; animation:starTwinkle var(--dur) ease-in-out infinite; animation-delay:var(--delay); }
+        .nebula { position:absolute; width:600px; height:600px; border-radius:50%; filter:blur(120px); opacity:0.04; }
+        .nebula-1 { background:#d4af37; top:-200px; right:-200px; }
+        .nebula-2 { background:#8b6914; bottom:-200px; left:-200px; }
+        .pattern-overlay { position:fixed; inset:0; z-index:1; opacity:0.015; background-image:repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 80deg, rgba(212,175,37,0.5) 80deg, transparent 80.5deg); background-size:120px 120px; }
+        .page { position:relative; z-index:2; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 24px; }
+        .ornament { display:flex; align-items:center; gap:16px; margin:28px 0; opacity:0; animation:fadeIn 1s ease forwards; animation-delay:0.4s; }
+        .ornament-line { width:60px; height:1px; background:linear-gradient(90deg, transparent, #d4af37, transparent); }
+        .ornament-diamond { width:8px; height:8px; background:#d4af37; transform:rotate(45deg); }
+        .icon-wrapper { position:relative; margin-bottom:8px; animation:fadeUp 0.8s ease forwards; animation-delay:0.1s; opacity:0; }
+        .icon-glow { position:absolute; inset:-20px; background:radial-gradient(circle, rgba(212,175,37,0.15), transparent 70%); border-radius:50%; animation:pulseGlow 4s ease-in-out infinite; }
+        .icon-ring { position:absolute; inset:-15px; border:1px solid rgba(212,175,37,0.1); border-radius:50%; animation:rotate 30s linear infinite; }
+        .icon-ring::before, .icon-ring::after { content:''; position:absolute; width:6px; height:6px; background:#d4af37; border-radius:50%; opacity:0.4; }
+        .icon-ring::before { top:-3px; left:50%; transform:translateX(-50%); }
+        .icon-ring::after { bottom:-3px; left:50%; transform:translateX(-50%); }
+        .icon { position:relative; width:110px; height:110px; border-radius:26px; z-index:1; animation:float 6s ease-in-out infinite; }
+        .title { font-family:'Amiri',serif; font-size:3.2rem; font-weight:700; letter-spacing:2px; background:linear-gradient(135deg, #c49b2a 0%, #f4e199 40%, #d4af37 60%, #a07c1c 100%); background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:fadeUp 0.8s ease forwards, shimmer 4s linear infinite; animation-delay:0.2s; opacity:0; line-height:1.3; }
+        .subtitle { font-size:1.2rem; color:#a09080; letter-spacing:1px; animation:fadeUp 0.8s ease forwards; animation-delay:0.3s; opacity:0; }
+        .ayah { margin:32px 0 8px; padding:20px 32px; position:relative; animation:fadeUp 0.8s ease forwards; animation-delay:0.5s; opacity:0; }
+        .ayah-text { font-family:'Amiri',serif; font-size:1.35rem; color:#d4af37; line-height:2; }
+        .ayah-ref { font-size:0.85rem; color:#6a5d4a; margin-top:6px; }
+        .buttons { display:flex; flex-direction:column; gap:14px; width:100%; max-width:340px; margin-top:12px; animation:fadeUp 0.8s ease forwards; animation-delay:0.6s; opacity:0; }
+        .btn { display:flex; align-items:center; justify-content:center; gap:14px; padding:16px 28px; border-radius:16px; text-decoration:none; font-family:'Noto Naskh Arabic',serif; font-size:1.1rem; font-weight:600; transition:all 0.3s cubic-bezier(0.4,0,0.2,1); position:relative; overflow:hidden; }
+        .btn:hover { transform:translateY(-2px); }
+        .btn:active { transform:scale(0.97); }
+        .btn svg { width:26px; height:26px; flex-shrink:0; }
+        .btn-apple { background:linear-gradient(135deg, #ffffff, #f0f0f0); color:#111; box-shadow:0 4px 20px rgba(255,255,255,0.1); }
+        .btn-apple:hover { box-shadow:0 8px 32px rgba(255,255,255,0.15); }
+        .btn-google { background:linear-gradient(135deg, #141420, #1a1a2e); color:#e0d5c1; border:1px solid rgba(212,175,37,0.2); box-shadow:0 4px 20px rgba(0,0,0,0.3); }
+        .btn-google:hover { border-color:rgba(212,175,37,0.4); box-shadow:0 8px 32px rgba(212,175,37,0.1); }
+        .btn-web { background:transparent; color:#a09080; border:1px solid rgba(160,144,128,0.2); font-size:0.95rem; padding:13px 28px; }
+        .btn-web:hover { border-color:rgba(160,144,128,0.4); color:#d4af37; }
+        .btn-label-sm { font-size:0.7rem; opacity:0.6; display:block; line-height:1; margin-bottom:2px; }
+        .btn-label-lg { font-size:1.1rem; line-height:1; }
+        .btn-text { display:flex; flex-direction:column; align-items:flex-start; }
+        .features { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:28px 0; max-width:380px; animation:fadeUp 0.8s ease forwards; animation-delay:0.7s; opacity:0; }
+        .pill { padding:6px 14px; border-radius:20px; border:1px solid rgba(212,175,37,0.12); background:rgba(212,175,37,0.04); color:#c4b89a; font-size:0.8rem; white-space:nowrap; }
+        .share-section { margin-top:32px; animation:fadeUp 0.8s ease forwards; animation-delay:0.8s; opacity:0; }
+        .share-btn { display:inline-flex; align-items:center; gap:10px; padding:12px 28px; border-radius:14px; background:linear-gradient(135deg, #25D366, #128C7E); color:#fff; text-decoration:none; font-size:0.95rem; font-weight:600; cursor:pointer; border:none; font-family:inherit; transition:all 0.3s; box-shadow:0 4px 20px rgba(37,211,102,0.2); }
+        .share-btn:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(37,211,102,0.3); }
+        .share-btn:active { transform:scale(0.97); }
+        .share-btn svg { width:20px; height:20px; }
+        .footer { margin-top:48px; text-align:center; animation:fadeIn 1s ease forwards; animation-delay:0.9s; opacity:0; }
+        .basmala { font-family:'Amiri',serif; font-size:1.1rem; color:#d4af37; opacity:0.6; margin-bottom:12px; }
+        .promise { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; }
+        .promise-item { font-size:0.8rem; color:#5a5040; display:flex; align-items:center; gap:6px; }
+        .promise-dot { width:4px; height:4px; border-radius:50%; background:#d4af37; opacity:0.4; }
+        .copyright { margin-top:20px; font-size:0.7rem; color:#3a3530; }
+        @media (max-width:400px) { .title { font-size:2.6rem; } .subtitle { font-size:1rem; } .ayah-text { font-size:1.15rem; } .ornament-line { width:40px; } .promise { gap:16px; } }
+    </style>
+</head>
+<body>
+    <div class="sky" id="sky"><div class="nebula nebula-1"></div><div class="nebula nebula-2"></div></div>
+    <div class="pattern-overlay"></div>
+    <div class="page">
+        <div class="icon-wrapper">
+            <div class="icon-glow"></div>
+            <div class="icon-ring"></div>
+            <img class="icon" src="icons/icon-512.png" alt="كلمات">
+        </div>
+        <h1 class="title">كلمات</h1>
+        <p class="subtitle">قارئ القرآن كلمة بكلمة</p>
+        <div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+
+        <div class="buttons">
+            <a class="btn btn-apple" id="appleBtn" href="#" style="display:none;">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                <div class="btn-text"><span class="btn-label-sm">Download on the</span><span class="btn-label-lg">App Store</span></div>
+            </a>
+            <a class="btn btn-google" id="googleBtn" href="#" style="display:none;">
+                <svg viewBox="0 0 24 24" fill="#d4af37"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.302 1.332-2.302 1.332-1.838-1.332 1.838-1.332zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                <div class="btn-text"><span class="btn-label-sm">GET IT ON</span><span class="btn-label-lg">Google Play</span></div>
+            </a>
+            <a class="btn btn-web" href="/">استخدم من المتصفح مباشرة</a>
+        </div>
+        <div class="features">
+            <span class="pill">كلمة بكلمة</span>
+            <span class="pill">تحكم بالسرعة</span>
+            <span class="pill">وضع الحفظ</span>
+            <span class="pill">بدون إنترنت</span>
+            <span class="pill">بلا إعلانات</span>
+        </div>
+        <div class="share-section">
+            <button class="share-btn" id="shareBtn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                شارك التطبيق
+            </button>
+        </div>
+        <div class="footer">
+            <div class="basmala">بسم الله الرحمن الرحيم</div>
+            <div class="promise">
+                <span class="promise-item"><span class="promise-dot"></span>بلا إعلانات</span>
+                <span class="promise-item"><span class="promise-dot"></span>بلا تتبّع</span>
+                <span class="promise-item"><span class="promise-dot"></span>صدقة جارية</span>
+            </div>
+            <div class="copyright">&copy; 2026 Eyepoke Entertainment</div>
+        </div>
+    </div>
+    <script>
+        const sky=document.getElementById('sky');
+        for(let i=0;i<80;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.setProperty('--dur',(2+Math.random()*4)+'s');s.style.setProperty('--delay',(Math.random()*4)+'s');if(Math.random()>0.7){s.style.width='3px';s.style.height='3px';}sky.appendChild(s);}
+        const APPLE_URL='https://apps.apple.com/app/id6758982557';
+        const GOOGLE_URL='https://play.google.com/store/apps/details?id=com.eyepoke.quranreader';
+        const SHARE_URL='https://quran-reader.vercel.app/download';
+        const ua=navigator.userAgent||'';
+        const isIOS=/iPhone|iPad|iPod/i.test(ua);
+        const isAndroid=/Android/i.test(ua);
+        const appleBtn=document.getElementById('appleBtn');
+        const googleBtn=document.getElementById('googleBtn');
+        if(isIOS){appleBtn.href=APPLE_URL;appleBtn.style.display='flex';googleBtn.href=GOOGLE_URL;googleBtn.style.display='flex';}
+        else if(isAndroid){googleBtn.href=GOOGLE_URL;googleBtn.style.display='flex';appleBtn.href=APPLE_URL;appleBtn.style.display='flex';googleBtn.parentElement.insertBefore(googleBtn,appleBtn);}
+        else{appleBtn.href=APPLE_URL;appleBtn.style.display='flex';googleBtn.href=GOOGLE_URL;googleBtn.style.display='flex';}
+        document.getElementById('shareBtn').addEventListener('click',function(){const text='كلمات - قارئ القرآن كلمة بكلمة\n\nتدبّر القرآن كلمة بكلمة بسرعتك\nبلا إعلانات · بلا تتبّع · صدقة جارية\n\n'+SHARE_URL;window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');});
+    </script>
+</body>
+</html>
